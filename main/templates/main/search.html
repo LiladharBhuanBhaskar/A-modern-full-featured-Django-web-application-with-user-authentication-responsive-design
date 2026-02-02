@@ -1,0 +1,98 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Search Messages - My Project{% endblock %}
+
+{% block content %}
+<!-- Search Hero -->
+<section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">Search Messages</h1>
+        <p class="lead">Search contact messages using ChromaDB vector search</p>
+    </div>
+</section>
+
+<!-- Search Form -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <form method="get" action="{% url 'search' %}">
+                            <div class="input-group input-group-lg mb-4">
+                                <input type="text" 
+                                       class="form-control" 
+                                       name="q" 
+                                       value="{{ query }}" 
+                                       placeholder="Enter search query...">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="bi bi-search"></i> Search
+                                </button>
+                            </div>
+                        </form>
+
+                        {% if query %}
+                            <div class="mt-4">
+                                <h5 class="fw-bold mb-3">Search Results for: "{{ query }}"</h5>
+                                
+                                {% if processed_results %}
+                                    <div class="alert alert-success">
+                                        Found {{ processed_results|length }} result(s)
+                                    </div>
+                                    
+                                    {% for result in processed_results %}
+                                        <div class="card mb-3 border-0 shadow-sm">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="fw-bold mb-0">
+                                                        <i class="bi bi-file-text text-primary"></i> Result {{ forloop.counter }}
+                                                    </h6>
+                                                    {% if result.distance %}
+                                                        <span class="badge bg-secondary">
+                                                            Distance: {{ result.distance|floatformat:4 }}
+                                                        </span>
+                                                    {% endif %}
+                                                </div>
+                                                
+                                                {% if result.document %}
+                                                    <p class="text-muted mb-2">
+                                                        {{ result.document|truncatewords:50 }}
+                                                    </p>
+                                                {% endif %}
+                                                
+                                                {% if result.metadata %}
+                                                    <div class="mt-2">
+                                                        <small class="text-muted">
+                                                            <strong>Name:</strong> {{ result.metadata.name|default:"N/A" }} | 
+                                                            <strong>Email:</strong> {{ result.metadata.email|default:"N/A" }}
+                                                        </small>
+                                                    </div>
+                                                {% endif %}
+                                                
+                                                <div class="mt-2">
+                                                    <small class="text-muted">
+                                                        <strong>ID:</strong> {{ result.id }}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% elif query %}
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-info-circle"></i> No results found for "{{ query }}"
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <div class="text-center text-muted mt-4">
+                                <i class="bi bi-search" style="font-size: 3rem;"></i>
+                                <p class="mt-3">Enter a search query above to find messages</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

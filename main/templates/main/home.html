@@ -1,0 +1,204 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Home - My Project{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold mb-4">Welcome to MyProject</h1>
+                <p class="lead mb-4">A modern, secure, and user-friendly web application built with Django. Experience seamless authentication, beautiful design, and powerful features.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg">
+                            <i class="bi bi-speedometer2"></i> Go to Dashboard
+                        </a>
+                    {% else %}
+                        <a href="{% url 'signup' %}" class="btn btn-light btn-lg">
+                            <i class="bi bi-person-plus"></i> Get Started
+                        </a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 text-center mt-5 mt-lg-0">
+                <div class="hero-image" style="font-size: 15rem; opacity: 0.3;">
+                    <i class="bi bi-rocket-takeoff"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-5 fw-bold mb-3">Key Features</h2>
+                <p class="text-muted">Everything you need for a modern web application</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 text-center p-4">
+                    <div class="mb-3" style="font-size: 3rem; color: #6366f1;">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <h4 class="fw-bold">Secure Authentication</h4>
+                    <p class="text-muted">Built-in user authentication with password hashing and session management for maximum security.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center p-4">
+                    <div class="mb-3" style="font-size: 3rem; color: #8b5cf6;">
+                        <i class="bi bi-phone"></i>
+                    </div>
+                    <h4 class="fw-bold">Responsive Design</h4>
+                    <p class="text-muted">Beautiful, mobile-first design that works perfectly on all devices and screen sizes.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center p-4">
+                    <div class="mb-3" style="font-size: 3rem; color: #ec4899;">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                    <h4 class="fw-bold">Fast & Modern</h4>
+                    <p class="text-muted">Built with the latest technologies and best practices for optimal performance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tasks Section (for logged in users) -->
+{% if user.is_authenticated %}
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2 class="display-5 fw-bold mb-3">
+                    <i class="bi bi-list-check text-primary"></i> Your Tasks
+                </h2>
+                <p class="text-muted">Manage your tasks and stay organized</p>
+            </div>
+        </div>
+        
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div style="font-size: 3rem; color: #6366f1; margin-bottom: 1rem;">
+                            <i class="bi bi-list-ul"></i>
+                        </div>
+                        <h3 class="fw-bold mb-0">{{ total_tasks }}</h3>
+                        <p class="text-muted mb-0">Total Tasks</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div style="font-size: 3rem; color: #10b981; margin-bottom: 1rem;">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <h3 class="fw-bold mb-0 text-success">{{ completed_tasks }}</h3>
+                        <p class="text-muted mb-0">Completed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div style="font-size: 3rem; color: #8b5cf6; margin-bottom: 1rem;">
+                            <i class="bi bi-plus-circle"></i>
+                        </div>
+                        <a href="{% url 'task_create' %}" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Add New Task
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if upcoming_tasks %}
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold mb-0">Upcoming Tasks</h4>
+                        <a href="{% url 'task_list' %}" class="btn btn-sm btn-outline-primary">View All Tasks</a>
+                    </div>
+                    <div class="row g-3">
+                        {% for task in upcoming_tasks %}
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="fw-bold mb-0 {% if task.completed %}text-decoration-line-through text-muted{% endif %}">
+                                                {{ task.title }}
+                                            </h6>
+                                            {% if task.is_overdue %}
+                                                <span class="badge bg-danger">Overdue</span>
+                                            {% elif task.is_due_soon %}
+                                                <span class="badge bg-warning">Due Soon</span>
+                                            {% endif %}
+                                        </div>
+                                        {% if task.description %}
+                                            <p class="text-muted small mb-2">{{ task.description|truncatewords:15 }}</p>
+                                        {% endif %}
+                                        <div class="mt-2">
+                                            <small class="text-muted">
+                                                <i class="bi bi-calendar"></i> {{ task.due_date|date:"M d, Y" }}<br>
+                                                <i class="bi bi-clock"></i> {{ task.due_time|time:"g:i A" }}
+                                            </small>
+                                        </div>
+                                        <div class="mt-3">
+                                            <a href="{% url 'task_edit' task.pk %}" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5 text-center">
+                    <div style="font-size: 4rem; color: #e2e8f0; margin-bottom: 1rem;">
+                        <i class="bi bi-inbox"></i>
+                    </div>
+                    <h5 class="text-muted mb-3">No upcoming tasks</h5>
+                    <a href="{% url 'task_create' %}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Create Your First Task
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white;">
+    <div class="container text-center">
+        <h2 class="display-5 fw-bold mb-4">Ready to Get Started?</h2>
+        <p class="lead mb-4">Join thousands of users who trust our platform</p>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'signup' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-arrow-right-circle"></i> Create Your Account
+            </a>
+        {% else %}
+            <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-speedometer2"></i> View Dashboard
+            </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

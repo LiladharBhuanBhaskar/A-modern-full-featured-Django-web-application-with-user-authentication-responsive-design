@@ -1,0 +1,129 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ action }} Task - My Project{% endblock %}
+
+{% block content %}
+<!-- Task Form Hero -->
+<section class="py-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="container text-center">
+        <h1 class="display-5 fw-bold mb-2">
+            <i class="bi bi-{% if action == 'Create' %}plus-circle{% else %}pencil{% endif %}"></i> {{ action }} Task
+        </h1>
+        <p class="lead mb-0">{% if action == 'Create' %}Add a new task to your list{% else %}Update your task details{% endif %}</p>
+    </div>
+</section>
+
+<!-- Task Form -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            
+                            <div class="mb-4">
+                                <label for="{{ form.title.id_for_label }}" class="form-label fw-semibold">
+                                    Task Title <span class="text-danger">*</span>
+                                </label>
+                                {{ form.title }}
+                                {% if form.title.errors %}
+                                    <div class="errorlist">
+                                        {% for error in form.title.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="{{ form.description.id_for_label }}" class="form-label fw-semibold">
+                                    Description
+                                </label>
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="errorlist">
+                                        {% for error in form.description.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="{{ form.due_date.id_for_label }}" class="form-label fw-semibold">
+                                        Due Date <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.due_date }}
+                                    {% if form.due_date.errors %}
+                                        <div class="errorlist">
+                                            {% for error in form.due_date.errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <label for="{{ form.due_time.id_for_label }}" class="form-label fw-semibold">
+                                        Due Time <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.due_time }}
+                                    {% if form.due_time.errors %}
+                                        <div class="errorlist">
+                                            {% for error in form.due_time.errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="{{ form.priority.id_for_label }}" class="form-label fw-semibold">
+                                        Priority
+                                    </label>
+                                    {{ form.priority }}
+                                    {% if form.priority.errors %}
+                                        <div class="errorlist">
+                                            {% for error in form.priority.errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <label for="{{ form.category.id_for_label }}" class="form-label fw-semibold">
+                                        Category
+                                    </label>
+                                    {{ form.category }}
+                                    {% if form.category.errors %}
+                                        <div class="errorlist">
+                                            {% for error in form.category.errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="{% url 'task_list' %}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> {{ action }} Task
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,391 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Dashboard - My Project{% endblock %}
+
+{% block content %}
+<!-- Dashboard Hero -->
+<section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3">Welcome, {{ user.username }}!</h1>
+                <p class="lead">This is your personal dashboard</p>
+            </div>
+            <div class="col-lg-4 text-end">
+                <div style="font-size: 5rem; opacity: 0.3;">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dashboard Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- User Info Card -->
+            <div class="col-lg-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <div style="font-size: 5rem; color: #6366f1;">
+                                <i class="bi bi-person-badge"></i>
+                            </div>
+                        </div>
+                        <h4 class="fw-bold text-center mb-4">User Information</h4>
+                        <div class="mb-3">
+                            <strong>Username:</strong>
+                            <p class="text-muted mb-0">{{ user.username }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Email:</strong>
+                            <p class="text-muted mb-0">{{ user.email|default:"Not provided" }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Member Since:</strong>
+                            <p class="text-muted mb-0">{{ user.date_joined|date:"F d, Y" }}</p>
+                        </div>
+                        <div class="mb-0">
+                            <strong>Last Login:</strong>
+                            <p class="text-muted mb-0">{{ user.last_login|date:"F d, Y g:i A"|default:"Never" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">
+                            <i class="bi bi-lightning-charge text-warning"></i> Quick Actions
+                        </h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <a href="{% url 'task_list' %}" class="card text-decoration-none h-100 border-0 shadow-sm hover-lift">
+                                    <div class="card-body text-center p-4">
+                                        <div class="mb-3" style="font-size: 2.5rem; color: #6366f1;">
+                                            <i class="bi bi-list-check"></i>
+                                        </div>
+                                        <h6 class="fw-bold">My Tasks</h6>
+                                        <p class="text-muted small mb-0">Manage your tasks</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% url 'task_create' %}" class="card text-decoration-none h-100 border-0 shadow-sm hover-lift">
+                                    <div class="card-body text-center p-4">
+                                        <div class="mb-3" style="font-size: 2.5rem; color: #10b981;">
+                                            <i class="bi bi-plus-circle"></i>
+                                        </div>
+                                        <h6 class="fw-bold">Add Task</h6>
+                                        <p class="text-muted small mb-0">Create new task</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% url 'contact' %}" class="card text-decoration-none h-100 border-0 shadow-sm hover-lift">
+                                    <div class="card-body text-center p-4">
+                                        <div class="mb-3" style="font-size: 2.5rem; color: #8b5cf6;">
+                                            <i class="bi bi-envelope-paper"></i>
+                                        </div>
+                                        <h6 class="fw-bold">Contact Us</h6>
+                                        <p class="text-muted small mb-0">Send us a message</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Status -->
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">
+                            <i class="bi bi-shield-check text-success"></i> Account Status
+                        </h4>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="me-3" style="font-size: 2rem; color: #10b981;">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Account Active</h6>
+                                <p class="text-muted small mb-0">Your account is active and ready to use</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="me-3" style="font-size: 2rem; color: #6366f1;">
+                                <i class="bi bi-key-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Password Protected</h6>
+                                <p class="text-muted small mb-0">Your password is securely hashed</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="me-3" style="font-size: 2rem; color: #8b5cf6;">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Session Active</h6>
+                                <p class="text-muted small mb-0">You are currently logged in</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Overview -->
+                <div class="card shadow-sm border-0 mt-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="fw-bold mb-0">
+                                <i class="bi bi-list-check text-primary"></i> Tasks Overview
+                            </h4>
+                            <a href="{% url 'task_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+                        </div>
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3">
+                                <div class="text-center p-3 bg-light rounded fade-in">
+                                    <div style="font-size: 2rem; color: #6366f1; margin-bottom: 0.5rem;">
+                                        <i class="bi bi-list-ul"></i>
+                                    </div>
+                                    <h3 class="fw-bold mb-0">{{ total_tasks }}</h3>
+                                    <small class="text-muted">Total Tasks</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 bg-light rounded fade-in">
+                                    <div style="font-size: 2rem; color: #10b981; margin-bottom: 0.5rem;">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <h3 class="fw-bold mb-0 text-success">{{ completed_tasks }}</h3>
+                                    <small class="text-muted">Completed</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 bg-light rounded fade-in">
+                                    <div style="font-size: 2rem; color: #f59e0b; margin-bottom: 0.5rem;">
+                                        <i class="bi bi-clock-history"></i>
+                                    </div>
+                                    <h3 class="fw-bold mb-0 text-warning">{{ pending_tasks }}</h3>
+                                    <small class="text-muted">Pending</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 bg-light rounded fade-in">
+                                    <div style="font-size: 2rem; color: #ef4444; margin-bottom: 0.5rem;">
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                    </div>
+                                    <h3 class="fw-bold mb-0 text-danger">{{ overdue_tasks|length }}</h3>
+                                    <small class="text-muted">Overdue</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-semibold">Completion Rate</span>
+                                <span class="fw-bold text-primary">{{ completion_rate }}%</span>
+                            </div>
+                            <div class="progress" style="height: 25px;">
+                                <div class="progress-bar bg-gradient" 
+                                     role="progressbar" 
+                                     style="width: {{ completion_rate }}%; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);" 
+                                     aria-valuenow="{{ completion_rate }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    {{ completion_rate }}%
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Priority Statistics -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center p-3">
+                                        <div style="font-size: 1.5rem; color: #ef4444;">
+                                            <i class="bi bi-flag-fill"></i>
+                                        </div>
+                                        <h4 class="fw-bold mb-0 text-danger">{{ high_priority }}</h4>
+                                        <small class="text-muted">High Priority</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center p-3">
+                                        <div style="font-size: 1.5rem; color: #f59e0b;">
+                                            <i class="bi bi-flag-fill"></i>
+                                        </div>
+                                        <h4 class="fw-bold mb-0 text-warning">{{ medium_priority }}</h4>
+                                        <small class="text-muted">Medium Priority</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center p-3">
+                                        <div style="font-size: 1.5rem; color: #3b82f6;">
+                                            <i class="bi bi-flag-fill"></i>
+                                        </div>
+                                        <h4 class="fw-bold mb-0 text-info">{{ low_priority }}</h4>
+                                        <small class="text-muted">Low Priority</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if due_soon_tasks %}
+                            <div class="alert alert-warning mb-3">
+                                <i class="bi bi-bell"></i> <strong>Due Soon:</strong> You have {{ due_soon_tasks|length }} task(s) due within the next hour!
+                            </div>
+                        {% endif %}
+
+                        {% if overdue_tasks %}
+                            <div class="alert alert-danger mb-3">
+                                <i class="bi bi-exclamation-triangle"></i> <strong>Overdue:</strong> You have {{ overdue_tasks|length }} overdue task(s)!
+                            </div>
+                        {% endif %}
+
+                        {% if upcoming_tasks %}
+                            <h6 class="fw-bold mb-3">Upcoming Tasks</h6>
+                            <div class="list-group">
+                                {% for task in upcoming_tasks %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1 {% if task.completed %}text-decoration-line-through text-muted{% endif %}">
+                                                {{ task.title }}
+                                            </h6>
+                                            <small class="text-muted">
+                                                <i class="bi bi-calendar"></i> {{ task.due_date|date:"M d, Y" }} 
+                                                <i class="bi bi-clock ms-2"></i> {{ task.due_time|time:"g:i A" }}
+                                            </small>
+                                        </div>
+                                        <div>
+                                            {% if task.is_overdue %}
+                                                <span class="badge bg-danger">Overdue</span>
+                                            {% elif task.is_due_soon %}
+                                                <span class="badge bg-warning">Due Soon</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted text-center mb-0">No upcoming tasks. <a href="{% url 'task_create' %}">Create one now!</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Activity Feed -->
+                <div class="card shadow-sm border-0 mt-4">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">
+                            <i class="bi bi-clock-history text-primary"></i> Recent Activity
+                        </h4>
+                        {% if recent_activities %}
+                            <div class="list-group list-group-flush">
+                                {% for activity in recent_activities %}
+                                    <div class="list-group-item border-0 px-0 fade-in">
+                                        <div class="d-flex align-items-start">
+                                            <div class="me-3">
+                                                <div class="bg-primary bg-opacity-10 rounded-circle p-2">
+                                                    <i class="bi bi-activity text-primary"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1 fw-semibold">{{ activity.action }}</h6>
+                                                <p class="text-muted small mb-1">{{ activity.description }}</p>
+                                                <small class="text-muted">
+                                                    <i class="bi bi-clock"></i> {{ activity.created_at|timesince }} ago
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted text-center mb-0">No recent activity</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- ChromaDB Status -->
+                <div class="card shadow-sm border-0 mt-4">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">
+                            <i class="bi bi-database text-primary"></i> ChromaDB Status
+                        </h4>
+                        {% if chroma_stats.status == 'connected' %}
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="me-3" style="font-size: 2rem; color: #10b981;">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">ChromaDB Connected</h6>
+                                    <p class="text-muted small mb-0">Total documents: {{ chroma_stats.total_documents }}</p>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <a href="{% url 'search' %}" class="btn btn-primary">
+                                    <i class="bi bi-search"></i> Search Messages
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="d-flex align-items-center">
+                                <div class="me-3" style="font-size: 2rem; color: #dc3545;">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">ChromaDB Error</h6>
+                                    <p class="text-muted small mb-0">{{ chroma_stats.error|default:"Unable to connect" }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hover-lift {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.15) !important;
+    }
+</style>
+
+<!-- Notification Script -->
+<script>
+// Check for tasks due soon and show browser notification
+{% if due_soon_tasks %}
+    if ('Notification' in window && Notification.permission === 'granted') {
+        {% for task in due_soon_tasks %}
+            new Notification('Task Due Soon: {{ task.title }}', {
+                body: 'Due: {{ task.due_date|date:"M d, Y" }} at {{ task.due_time|time:"g:i A" }}',
+                icon: '/static/favicon.ico'
+            });
+        {% endfor %}
+    } else if ('Notification' in window && Notification.permission !== 'denied') {
+        Notification.requestPermission().then(function(permission) {
+            if (permission === 'granted') {
+                {% for task in due_soon_tasks %}
+                    new Notification('Task Due Soon: {{ task.title }}', {
+                        body: 'Due: {{ task.due_date|date:"M d, Y" }} at {{ task.due_time|time:"g:i A" }}',
+                        icon: '/static/favicon.ico'
+                    });
+                {% endfor %}
+            }
+        });
+    }
+{% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends 'main/base.html' %}
+
+{% block title %}About - My Project{% endblock %}
+
+{% block content %}
+<!-- About Hero -->
+<section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">About MyProject</h1>
+        <p class="lead">Learn more about our mission and vision</p>
+    </div>
+</section>
+
+<!-- Project Info Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">Project Information</h2>
+                <p class="lead text-muted mb-4">
+                    MyProject is a modern web application built with Django, designed to showcase best practices in web development, authentication, and user experience.
+                </p>
+                <p class="mb-4">
+                    This project demonstrates a complete full-stack application with secure user authentication, responsive design, and a clean, modern interface. Built with Django's powerful framework, it includes user registration, login, session management, and a contact form system.
+                </p>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3" style="font-size: 2rem; color: #6366f1;">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Secure</h5>
+                                <p class="text-muted mb-0">Password hashing & CSRF protection</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3" style="font-size: 2rem; color: #8b5cf6;">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Responsive</h5>
+                                <p class="text-muted mb-0">Works on all devices</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3" style="font-size: 2rem; color: #ec4899;">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Modern UI</h5>
+                                <p class="text-muted mb-0">Beautiful Bootstrap design</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3" style="font-size: 2rem; color: #10b981;">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">User-Friendly</h5>
+                                <p class="text-muted mb-0">Intuitive interface</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center mt-5 mt-lg-0">
+                <div style="font-size: 12rem; color: #e2e8f0;">
+                    <i class="bi bi-info-circle"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">Our Mission</h2>
+                <p class="lead text-muted mb-4">
+                    Our mission is to create a platform that demonstrates excellence in web development practices, focusing on security, user experience, and modern design principles.
+                </p>
+                <div class="row g-4 mt-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3" style="font-size: 3rem; color: #6366f1;">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
+                                <h5 class="fw-bold">Security First</h5>
+                                <p class="text-muted small">Implementing best security practices to protect user data</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3" style="font-size: 3rem; color: #8b5cf6;">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <h5 class="fw-bold">User-Centric</h5>
+                                <p class="text-muted small">Designing with users in mind for the best experience</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <div class="mb-3" style="font-size: 3rem; color: #ec4899;">
+                                    <i class="bi bi-code-slash"></i>
+                                </div>
+                                <h5 class="fw-bold">Clean Code</h5>
+                                <p class="text-muted small">Maintaining high code quality and best practices</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech Stack -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">Technology Stack</h2>
+                <p class="text-muted mb-5">Built with modern technologies and frameworks</p>
+                <div class="row g-4">
+                    <div class="col-md-3 col-6">
+                        <div class="p-4">
+                            <div style="font-size: 3rem; color: #092e20;">
+                                <i class="bi bi-filetype-py"></i>
+                            </div>
+                            <h6 class="mt-2 fw-bold">Django</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-4">
+                            <div style="font-size: 3rem; color: #7952b3;">
+                                <i class="bi bi-bootstrap"></i>
+                            </div>
+                            <h6 class="mt-2 fw-bold">Bootstrap</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-4">
+                            <div style="font-size: 3rem; color: #3178c6;">
+                                <i class="bi bi-filetype-html"></i>
+                            </div>
+                            <h6 class="mt-2 fw-bold">HTML5</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-4">
+                            <div style="font-size: 3rem; color: #1572b6;">
+                                <i class="bi bi-filetype-css"></i>
+                            </div>
+                            <h6 class="mt-2 fw-bold">CSS3</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
